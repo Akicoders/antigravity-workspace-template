@@ -131,12 +131,16 @@ class MemoryManager:
         if self.summary != previous_summary:
             self.save_memory()
 
-        summary_message = {
-            "role": "system",
-            "content": f"Previous Summary: {self.summary}"
-        }
+        summary_message = None
+        if self.summary:
+            summary_message = {
+                "role": "system",
+                "content": f"Previous Summary: {self.summary}"
+            }
 
-        return [system_message, summary_message, *recent_history]
+        if summary_message:
+            return [system_message, summary_message, *recent_history]
+        return [system_message, *recent_history]
 
     def clear_memory(self):
         """Clears the agent's memory."""
