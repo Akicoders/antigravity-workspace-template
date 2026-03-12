@@ -1,43 +1,60 @@
-# 🪐Antigravity Workspace Template
+<div align="center">
 
-**Production-grade starter kit for autonomous AI agents on Google Antigravity.**
+<img src="docs/assets/logo.png" alt="Antigravity Workspace" width="200"/>
 
-Language: [English](/docs/en/) | [中文（仓库主页）](README_CN.md) | [中文文档](/docs/zh/) | [Español](/docs/es/)
+# Antigravity Workspace Template
 
-![License](https://img.shields.io/badge/License-MIT-green)
-![Gemini](https://img.shields.io/badge/AI-Gemini_2.0_Flash-blue)
-![Architecture](https://img.shields.io/badge/Architecture-Event_Driven-purple)
-![Memory](https://img.shields.io/badge/Context-Infinite-orange)
+**Production-grade starter kit for autonomous AI agents.**
 
-## 🌟 Project Intent
+*Works with any AI IDE · Any CLI · Any LLM*
 
-In a world full of AI IDEs, I want enterprise-grade architecture to be as simple as **Clone → Rename → Prompt**.
+Language: **English** | [中文](README_CN.md) | [Español](README_ES.md)
 
-This project leverages IDE context awareness (via `.cursorrules` and `.antigravity/rules.md`) to pre-embed a complete **cognitive architecture** in the repo.
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Gemini](https://img.shields.io/badge/AI-Gemini_2.0_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-Compatible-412991?style=for-the-badge&logo=openai&logoColor=white)](https://openai.com/)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org/)
 
-When you open this project, your IDE stops being just an editor—it becomes an **industry-savvy architect**.
+<br/>
 
-**First principles:**
+<img src="https://img.shields.io/badge/Google_Antigravity-✓-4285F4?style=flat-square" alt="Antigravity"/>
+<img src="https://img.shields.io/badge/Cursor-✓-000000?style=flat-square" alt="Cursor"/>
+<img src="https://img.shields.io/badge/Windsurf-✓-06B6D4?style=flat-square" alt="Windsurf"/>
+<img src="https://img.shields.io/badge/VS_Code_+_Copilot-✓-007ACC?style=flat-square" alt="VS Code"/>
+<img src="https://img.shields.io/badge/Cline-✓-FF6B6B?style=flat-square" alt="Cline"/>
+<img src="https://img.shields.io/badge/Aider-✓-8B5CF6?style=flat-square" alt="Aider"/>
+<img src="https://img.shields.io/badge/Claude_Code-✓-D97757?style=flat-square" alt="Claude Code"/>
+<img src="https://img.shields.io/badge/Gemini_CLI-✓-4285F4?style=flat-square" alt="Gemini CLI"/>
+<img src="https://img.shields.io/badge/Codex-✓-412991?style=flat-square" alt="Codex"/>
 
-- Minimize repetition: the repo should encode defaults so setup is nearly zero.
-- Make intent explicit: capture architecture, context, and workflows in files, not tribal knowledge.
-- Treat the IDE as a teammate: contextual rules turn the editor into a proactive architect, not a passive tool.
+</div>
 
-### Why do we need a thinking scaffold?
+<br/>
 
-While building with Google Antigravity or Cursor, I found a pain point:
+> **Clone → Rename → Prompt. That's the workflow.**
+>
+> In a world full of AI IDEs, I want enterprise-grade architecture to be as simple as three commands. This template pre-embeds a complete **cognitive architecture** in the repo—when you open it, your IDE stops being an editor and becomes an **industry-savvy architect**.
 
-**The IDE and models are powerful, but the empty project is too weak.**
+---
 
-Every new project repeats the same boring setup:
+## 🌍 Universal Compatibility
 
-- "Should my code live in `src` or `app`?"
-- "How do I define utilities so Gemini recognizes them?"
-- "How do I help the AI remember prior context?"
+This template is **not** tied to any specific IDE. It works everywhere:
 
-This repetition wastes creative energy. My ideal workflow is: **after a git clone, the IDE already knows what to do.**
+| Platform | How It Works |
+|:---------|:-------------|
+| **Google Antigravity** | Reads `.antigravity/rules.md` for full context awareness |
+| **Cursor** | Reads `.cursorrules` for project-level rules |
+| **Windsurf / VS Code + Copilot** | Uses `.context/` files for knowledge injection |
+| **Claude Code** | Reads `AGENTS.md` + `CONTEXT.md` for project conventions |
+| **Gemini CLI** | Reads `AGENTS.md` + `.context/` for knowledge injection |
+| **Codex (OpenAI)** | Reads `AGENTS.md` + directory conventions |
+| **Cline / Aider** | Leverages `CONTEXT.md` + directory conventions |
+| **Any OpenAI-compatible agent** | Auto-discovered tools in `src/tools/`, standard Python entry |
 
-So I built this project: **Antigravity Workspace Template**.
+The secret: architecture is encoded in **files**, not in IDE-specific plugins. Any agent that reads project files can benefit.
+
+---
 
 ## ⚡ Quick Start
 
@@ -76,97 +93,44 @@ install.bat
 python src/agent.py
 ```
 
-### Manual Installation
+<details>
+<summary><b>📋 Manual Installation</b></summary>
 
 ```bash
-# 1. Clone the template
 git clone https://github.com/study8677/antigravity-workspace-template.git my-project
 cd my-project
-
-# 2. Create virtual environment
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# 3. Install dependencies
 pip install -r requirements.txt
-
-# 4. Configure your API keys
-cp .env.example .env  # (if available) or create .env manually
+cp .env.example .env      # (if available) or create .env manually
 nano .env
-
-# 5. Run the agent
 python src/agent.py
 ```
+</details>
 
-**That's it!** The IDE auto-loads configuration via `.cursorrules` + `.antigravity/rules.md`. You're ready to prompt.
+**That's it!** The IDE auto-loads configuration and you're ready to prompt.
+
+---
 
 ## 🎯 What Is This?
 
 This is **not** another LangChain wrapper. It's a minimal, transparent workspace for building AI agents that:
 
-- 🧠 Have infinite memory (recursive summarization)
-- 🛠️ Auto-discover tools from `src/tools/`
-- 📚 Auto-inject context from `.context/`
-- 🔌 Connect to MCP servers seamlessly
-- 🤖 Coordinate multiple specialist agents
-- 📦 Save outputs as artifacts (plans, logs, evidence)
-
-**Clone → Rename → Prompt. That's the workflow.**
-
-## 🚀 Key Features
-
 | Feature | Description |
-|---------|-------------|
+|:--------|:------------|
 | 🧠 **Infinite Memory** | Recursive summarization compresses context automatically |
-| 🧠 **True Thinking** | "Deep Think" step using Chain-of-Thought prompts before acting |
-| 🎓 **Skills System** | Modular capabilities as folders (`src/skills/`) with auto-loading (includes `agent-repo-init`) |
+| 🧠 **True Thinking** | "Deep Think" step using Chain-of-Thought before acting |
+| 🎓 **Skills System** | Modular capabilities in `src/skills/` with auto-loading |
 | 🛠️ **Universal Tools** | Drop Python functions in `src/tools/` → auto-discovered |
 | 📚 **Auto Context** | Add files to `.context/` → auto-injected into prompts |
 | 🔌 **MCP Support** | Connect GitHub, databases, filesystems, custom servers |
 | 🤖 **Swarm Agents** | Multi-agent orchestration with Router-Worker pattern |
 | ⚡ **Gemini Native** | Optimized for Gemini 2.0 Flash |
-| 🌐 **LLM Agnostic** | Use OpenAI, Azure, Ollama, or any OpenAI-compatible API |
-| 📂 **Artifact-First** | Convention-first workflow for storing plans, logs, and evidence in `artifacts/` |
-| 🔒 **Sandbox Execution** | Configurable code execution environments (local by default) |
+| 🌐 **LLM Agnostic** | Use OpenAI, Azure, Ollama, or any compatible API |
+| 📂 **Artifact-First** | Convention-first workflow for plans, logs, and evidence |
+| 🔒 **Sandbox** | Configurable code execution (local / microsandbox) |
 
-## 📚 Documentation
-
-**Full documentation available in `/docs/en/`:**
-
-- **[Quick Start](docs/en/QUICK_START.md)** — Installation & deployment
-- **[Philosophy](docs/en/PHILOSOPHY.md)** — Core concepts & architecture
-- **[Zero-Config](docs/en/ZERO_CONFIG.md)** — Auto tool & context loading
-- **[MCP Integration](docs/en/MCP_INTEGRATION.md)** — External tool connectivity
-- **[Swarm Protocol](docs/en/SWARM_PROTOCOL.md)** — Multi-agent coordination
-- **[Roadmap](docs/en/ROADMAP.md)** — Future phases & vision
-
-### Sandbox Configuration (Zero-Config by default)
-
-The sandbox lets the agent execute generated Python code safely and consistently. It defaults to a local subprocess with isolation and limits.
-
-- `SANDBOX_TYPE`: `local` (default) | `microsandbox` (opt-in) | `e2b` (future)
-- `SANDBOX_TIMEOUT_SEC`: maximum execution time in seconds (default `30`)
-- `SANDBOX_MAX_OUTPUT_KB`: truncate stdout/stderr to limit size (default `10`)
-
-Microsandbox (opt-in) extra variables:
-- `MSB_SERVER_URL` (default `http://127.0.0.1:5555`)
-- `MSB_API_KEY` (optional)
-- `MSB_IMAGE` (default `microsandbox/python`)
-- `MSB_CPU_LIMIT` (default `1.0`)
-- `MSB_MEMORY_MB` (default `512`)
-
-Example:
-
-```bash
-export SANDBOX_TYPE=local
-export SANDBOX_TIMEOUT_SEC=30
-export SANDBOX_MAX_OUTPUT_KB=10
-# Microsandbox mode
-# msb server start --dev
-# export SANDBOX_TYPE=microsandbox
-# export MSB_SERVER_URL=http://127.0.0.1:5555
-# export MSB_IMAGE=microsandbox/python
-```
+---
 
 ## 🏗️ Project Structure
 
@@ -177,15 +141,18 @@ src/
 ├── mcp_client.py      # MCP integration
 ├── swarm.py           # Multi-agent orchestration
 ├── agents/            # Specialist agents
-├── tools/             # Your custom tools
-└── skills/            # Modular skills (Zero-Config)
+├── tools/             # Your custom tools (auto-discovered)
+└── skills/            # Modular skills (auto-loaded)
 
 .context/             # Knowledge base (auto-injected)
 .antigravity/         # Antigravity rules
+.cursorrules          # Cursor rules
 artifacts/            # Outputs & evidence
 ```
 
-## 💡 Example: Build a Tool in 30 Seconds
+---
+
+## 💡 Build a Tool in 30 Seconds
 
 ```python
 # src/tools/my_tool.py
@@ -194,35 +161,40 @@ def analyze_sentiment(text: str) -> str:
     return "positive" if len(text) > 10 else "neutral"
 ```
 
-**Restart agent.** Done! The tool is now available.
+**Restart the agent.** Done! The tool is now available to any AI IDE.
 
-## 🎓 Example: Initialize a New Repo with Skill
+---
+
+## 🎓 Initialize a New Repo with Skill
 
 The built-in `agent-repo-init` skill supports two modes:
 - `quick`: minimal clean scaffold
 - `full`: scaffold + runtime profile defaults (`.env`, mission, context profile, init report)
 
-You can run the portable script at `skills/agent-repo-init/scripts/init_project.py`:
-
-```text
+```bash
 python skills/agent-repo-init/scripts/init_project.py \
   --project-name my-new-agent \
   --destination-root /absolute/path/for/new/projects \
   --mode quick
 ```
 
-`full` mode example adds profile defaults:
+<details>
+<summary><b>Full mode example</b></summary>
 
-```text
+```bash
 python skills/agent-repo-init/scripts/init_project.py \
   --project-name my-new-agent \
   --destination-root /absolute/path/for/new/projects \
-  --mode full --llm-provider openai --enable-mcp --disable-swarm --sandbox-runtime microsandbox --init-git
+  --mode full --llm-provider openai --enable-mcp --disable-swarm \
+  --sandbox-runtime microsandbox --init-git
 ```
+</details>
+
+---
 
 ## 🔌 MCP Integration
 
-Connect to external tools:
+Connect to external tools seamlessly:
 
 ```json
 {
@@ -238,11 +210,11 @@ Connect to external tools:
 }
 ```
 
-Agent automatically discovers and uses all MCP tools.
+---
 
 ## 🤖 Multi-Agent Swarm
 
-Decompose complex tasks:
+Decompose complex tasks automatically:
 
 ```python
 from src.swarm import SwarmOrchestrator
@@ -251,42 +223,55 @@ swarm = SwarmOrchestrator()
 result = swarm.execute("Build and review a calculator")
 ```
 
-The swarm automatically:
-- 📤 Routes to Coder, Reviewer, Researcher agents
-- 🧩 Synthesizes results
-- 📂 Exposes message logs via `get_message_log()` for inspection
+The swarm automatically routes to Coder, Reviewer, and Researcher agents, synthesizes results, and exposes logs via `get_message_log()`.
 
-## ✅ What's Complete
+---
+
+## 🔒 Sandbox Configuration
+
+| Variable | Default | Options |
+|:---------|:--------|:--------|
+| `SANDBOX_TYPE` | `local` | `local` · `microsandbox` |
+| `SANDBOX_TIMEOUT_SEC` | `30` | seconds |
+| `SANDBOX_MAX_OUTPUT_KB` | `10` | KB |
+
+<details>
+<summary><b>Microsandbox extra variables</b></summary>
+
+| Variable | Default |
+|:---------|:--------|
+| `MSB_SERVER_URL` | `http://127.0.0.1:5555` |
+| `MSB_API_KEY` | (optional) |
+| `MSB_IMAGE` | `microsandbox/python` |
+| `MSB_CPU_LIMIT` | `1.0` |
+| `MSB_MEMORY_MB` | `512` |
+</details>
+
+---
+
+## 📚 Documentation
+
+| Language | Link |
+|:---------|:-----|
+| 🇬🇧 English | **[`/docs/en/`](docs/en/)** |
+| 🇨🇳 中文 | **[`/docs/zh/`](docs/zh/)** |
+| 🇪🇸 Español | **[`/docs/es/`](docs/es/)** |
+
+---
+
+## ✅ Progress
 
 - ✅ Phase 1-7: Foundation, DevOps, Memory, Tools, Swarm, Discovery
 - ✅ Phase 8: MCP Integration (fully implemented)
 - 🚀 Phase 9: Enterprise Core (in progress)
 
-## 🆕 Recent Updates
-
-- 2026-03-02: Migrated sandbox runtime from Docker to Microsandbox.
-- Added `microsandbox` backend with `SANDBOX_TYPE=microsandbox` (default remains `local`).
-- Removed Docker runtime implementation and Docker sandbox test suite.
-- Updated sandbox env/config keys to `MSB_SERVER_URL`, `MSB_API_KEY`, `MSB_IMAGE`, `MSB_CPU_LIMIT`, `MSB_MEMORY_MB`.
-- Breaking change: `agent-repo-init` replaced `enable_docker` with `sandbox_runtime` (`local` | `microsandbox`).
-- Updated init script usage to `--sandbox-runtime microsandbox` (replaces `--enable-docker`).
-- Added **True Thinking**: The agent now performs a real "Deep Think" step (Chain-of-Thought) before every action, generating a structured plan.
-- Added **Skills System**: New `src/skills/` directory allows for modular, folder-based agent capabilities (Docs + Code).
-- Added **agent-repo-init skill**: Initialize a clean, reusable repository from this template via `init_agent_repo`.
-- Added local OpenAI-compatible backend support (e.g., Ollama) when no Google API key is provided.
-- Fixed `.env` loading so runs from the `src/` folder still read the project-root config.
-- CLI entrypoints (`agent.py` and `src/agent.py`) now accept tasks via arguments `AGENT_TASK`.
-
 See [Roadmap](docs/en/ROADMAP.md) for details.
+
+---
 
 ## 🤝 Contributing
 
-Ideas are contributions too! Open an [issue](https://github.com/study8677/antigravity-workspace-template/issues) to:
-- Report bugs
-- Suggest features
-- Propose architecture (Phase 9)
-
-Or submit a PR to improve docs or code.
+Ideas are contributions too! Open an [issue](https://github.com/study8677/antigravity-workspace-template/issues) to report bugs, suggest features, or propose architecture.
 
 ## 👥 Contributors
 
@@ -303,4 +288,10 @@ MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-**[Explore Full Documentation →](docs/en/)**
+<div align="center">
+
+**[📚 Explore Full Documentation →](docs/en/)**
+
+*Built with ❤️ for the AI-native development era*
+
+</div>
