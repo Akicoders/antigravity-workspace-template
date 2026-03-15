@@ -37,6 +37,7 @@ class GeminiAgent:
         self.settings = settings
         self._ensure_workspace_paths()
         self.memory = MemoryManager()
+        self._latest_retrieved_memory = ""
         self.mcp_manager = None  # Will be initialized if MCP is enabled
         self.use_openai_backend = False  # Use OpenAI-compatible backend when configured
 
@@ -225,9 +226,8 @@ class GeminiAgent:
         """
         context_parts = []
 
-        # Get the .context directory path relative to project root
-        # Navigate up from src/ to project root
-        context_dir = Path(__file__).parent.parent / ".context"
+        # Resolve .context/ relative to the user workspace, not the engine
+        context_dir = self.settings.project_root_path / ".context"
 
         if not context_dir.exists():
             return ""
@@ -366,10 +366,17 @@ class GeminiAgent:
         Generates a Chain-of-Thought plan using the specific Deep Think prompt.
         """
         context_knowledge = self._load_context()
+        retrieved_memory_block = ""
+        if self._latest_retrieved_memory:
+            retrieved_memory_block = (
+                "Retrieved Memory Snippets (pre-fetched):\n"
+                f"{self._latest_retrieved_memory}\n\n"
+            )
         
         # This prompt is derived from .antigravity/rules.md
         thinking_prompt = (
             f"{context_knowledge}\n\n"
+            f"{retrieved_memory_block}"
             "You are a Google Antigravity Expert in Deep Think mode.\n"
             "Your Goal: Analyze the user task and formulate a precise execution plan.\n"
             "BEHAVIOR:\n"
@@ -397,6 +404,11 @@ class GeminiAgent:
         """
         # 1) Record user input
         self.memory.add_entry("user", task)
+        self._latest_retrieved_memory = self.memory.build_retrieval_context(
+            query=task,
+            limit=6,
+            max_chars=1600,
+        )
 
         # 2) Think (integrated CoT)
         thought_process = self.think(task)
@@ -408,6 +420,8 @@ class GeminiAgent:
 
         system_prompt = (
             "You are an expert AI agent following the Think-Act-Reflect loop.\n"
+            "Relevant Retrieved Memory Snippets:\n"
+            f"{self._latest_retrieved_memory}\n\n"
             "You have access to the following tools:\n"
             f"{tool_list}\n\n"
             f"Relevant Context/Plan:\n{thought_process}\n\n"
@@ -518,11 +532,27 @@ class GeminiAgent:
 
 
 if __name__ == "__main__":
-    # Anchor relative file writes (plans, logs, memory) to the project workspace.
-    os.chdir(PROJECT_ROOT)
+    import argparse
 
-    # Allow overriding the task via CLI args or AGENT_TASK env var
-    task = " ".join(sys.argv[1:]).strip() or os.environ.get(
+    parser = argparse.ArgumentParser(description="Antigravity Agent Engine")
+    parser.add_argument(
+        "--workspace",
+        type=str,
+        default=None,
+        help="Path to the user workspace directory.",
+    )
+    parser.add_argument("task", nargs="*", help="Task to execute.")
+    args = parser.parse_args()
+
+    # Set WORKSPACE_PATH *before* Settings is instantiated
+    if args.workspace:
+        os.environ["WORKSPACE_PATH"] = str(Path(args.workspace).resolve())
+
+    # Re-import settings so it picks up the new env var
+    from src.config import Settings
+    settings_instance = Settings()
+
+    task = " ".join(args.task).strip() or os.environ.get(
         "AGENT_TASK", "帮助我查看今天的天气"
     )
 

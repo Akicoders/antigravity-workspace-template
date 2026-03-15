@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import List, Optional
 from pydantic import Field
@@ -37,8 +38,12 @@ class Settings(BaseSettings):
     AGENT_NAME: str = "AntigravityAgent"
     DEBUG_MODE: bool = False
     PROJECT_ROOT: str = Field(
-        default_factory=lambda: str(Path(__file__).resolve().parent.parent),
-        description="Absolute path to the project root directory.",
+        default_factory=lambda: os.environ.get(
+            "WORKSPACE_PATH", str(Path.cwd())
+        ),
+        description="Absolute path to the user workspace. "
+        "Set via --workspace CLI arg or WORKSPACE_PATH env var. "
+        "Defaults to current working directory.",
     )
 
     # External LLM (OpenAI-compatible) Configuration
@@ -56,7 +61,8 @@ class Settings(BaseSettings):
     )
 
     # Memory Configuration
-    MEMORY_FILE: str = "agent_memory.json"
+    MEMORY_FILE: str = "memory/agent_memory.md"
+    MEMORY_SUMMARY_FILE: str = "memory/agent_summary.md"
     ARTIFACTS_DIR: str = Field(
         default="artifacts",
         description="Directory for artifacts and logs. Relative paths are resolved from PROJECT_ROOT.",
@@ -75,7 +81,11 @@ class Settings(BaseSettings):
     )
 
     model_config = SettingsConfigDict(
-        env_file=str(Path(__file__).resolve().parent.parent / ".env"),
+        env_file=str(
+            Path(
+                os.environ.get("WORKSPACE_PATH", str(Path.cwd()))
+            ) / ".env"
+        ),
         env_file_encoding="utf-8",
         extra="ignore",
     )
@@ -104,6 +114,11 @@ class Settings(BaseSettings):
     def memory_file_path(self) -> Path:
         """Return the resolved memory file path."""
         return self.resolve_path(self.MEMORY_FILE)
+
+    @property
+    def memory_summary_file_path(self) -> Path:
+        """Return the resolved memory summary file path."""
+        return self.resolve_path(self.MEMORY_SUMMARY_FILE)
 
     @property
     def artifacts_path(self) -> Path:
